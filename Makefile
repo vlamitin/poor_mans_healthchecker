@@ -21,8 +21,8 @@ write_fail:
 .SILENT: notify_success
 notify_success:
 	curl -X POST \
-         -H 'Content-Type: application/json' \
-         -d '{"chat_id": "$(TG_CHAT_ID)", "text": "$(URL_TO_CHECK) is AVAILABLE", "disable_notification": true}' \
+      	 -H 'Content-Type: application/json' \
+         -d '{"chat_id": "$(TG_CHAT_ID)", "text": "✅ $(APP_NAME) ($(URL_TO_CHECK))", "disable_notification": true}' \
          https://api.telegram.org/bot$(TG_BOT_TOKEN)/sendMessage
 
 .PHONY: notify_fail
@@ -30,7 +30,7 @@ notify_success:
 notify_fail:
 	curl -s -X POST \
          -H 'Content-Type: application/json' \
-         -d '{"chat_id": "$(TG_CHAT_ID)", "text": "$(URL_TO_CHECK) is UNAVAILABLE", "disable_notification": true}' \
+         -d '{"chat_id": "$(TG_CHAT_ID)", "text": "❌ $(APP_NAME) ($(URL_TO_CHECK))", "disable_notification": true}' \
          https://api.telegram.org/bot$(TG_BOT_TOKEN)/sendMessage
 
 .PHONY: print_chat_ids
